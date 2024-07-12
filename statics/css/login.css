@@ -1,0 +1,196 @@
+* {
+	box-sizing: border-box
+}
+
+html,
+body {
+	height: 100%
+}
+
+.login_bg {
+	overflow-x: hidden;
+	padding-top: 6%;
+	background: url("../img/login_bg.jpg") no-repeat center;
+	background-size: cover
+}
+
+.login_from {
+	width: 100%;
+	/*margin: 0 auto;
+	padding: 35px 40px;
+	border-radius: 5px;
+	background: url("../img/login_form_bg.png") center;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+	position: relative;*/
+}
+
+.login_from .layui-form .layui-input {
+	line-height: 40px;
+	width: 100%;
+	height: 40px;
+	border: none;
+	border-bottom: 1px solid #999;
+	background: #fff;
+	font-size: 14px;
+	box-sizing: border-box;
+	padding-right: 40px;
+	outline: none;
+}
+::-webkit-input-placeholder {
+    color: #999 !important;
+}
+.login_from .layui-form #username{
+	background: url(../img/user.png) no-repeat right 8px center;	
+}
+.login_from .layui-form #password{
+	background: url(../img/pass.png) no-repeat right 8px center;	
+}
+/*.login_from .layui-form .layui-input:focus {
+	border: 2px solid #00aaef !important
+}*/
+
+.login_from .layui-form .layui-input.layui-form-danger {
+	border: 2px solid #fa7252 !important
+}
+
+.login_from .layui-form .layui-input::-webkit-input-placeholder {
+	color: #adbdcc
+}
+
+.login_from .layui-form .layui-input:-moz-placeholder {
+	color: #adbdcc
+}
+
+.login_from .layui-form .layui-input::-moz-placeholder {
+	color: #adbdcc
+}
+
+.login_from .layui-form .layui-input:-ms-input-placeholder {
+	color: #adbdcc
+}
+
+.login_from .layui-btn {
+	margin-top: 40px;
+	font-size: 16px;
+	line-height: 46px;
+	width: 100%;
+	height: 46px;
+	color: #fff;
+	/*border-radius: 100px;*/
+	background: #3885f0;
+	opacity: 1;
+	transition: all 0.3s;
+}
+
+.login_from .layui-btn:hover {
+	background: #095aca
+}
+
+.login_title {
+	margin-bottom: 38px;
+	text-align: center
+}
+#slider{
+	margin-top: 16px;
+}
+.login_title h1 {
+	font-size: 26px;
+	font-weight: normal;
+	color: #3d5266;
+	line-height: 44px
+}
+
+.errorinfo {
+	display: none;
+	margin-left: 20px;
+	margin-top: 10px;
+	color: #fa7252
+}
+
+.form_group {
+	/*margin-bottom: 36px;*/
+	height: 78px;
+}
+.layui-form{
+	margin-top: 38px;
+}
+.ui-slider-wrap .ui-slider-btn{
+	box-sizing: border-box;
+	border: 1px solid #dedede;
+}
+/*# sourceMappingURL=login.css.map */
+
+.copyright {
+	line-height: 40px;
+	height: 40px;
+	text-align: center;
+	width: 100%;
+	color: #999;
+}
+.ui-slider-wrap{
+	width: 100% !important;
+}
+.tlogin_con {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-left: -600px;
+	margin-top: -275px;
+	height: 550px;
+	background: #fff;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.17);
+	width: 1200px;
+	overflow: hidden;
+}
+
+.tlogin_left {
+	float: left;
+	margin-left: 98px;
+	margin-top: 58px;
+}
+
+.tlogin_limg {
+	width: 511px;
+	height: 352px;
+}
+
+.tlogin_bot {
+	width: 511px;
+	text-align: center;
+	margin-top: 64px;
+	color: #999;
+	font-size: 14px;
+	background: url(../img/warr.png) 62px center no-repeat;
+}
+
+.tlogin_right {
+	width: 360px;
+	float: right;
+	margin-right: 114px;
+	margin-top: 88px;
+}
+
+.tlogin_t1 {
+	font-size: 32px;
+	font-weight: 900;
+	color: #3885f0;
+}
+
+.tlogin_t2 {
+	font-size: 12px;
+	color: #999;
+	line-height: 20px;
+	margin-top: 8px;
+	text-transform: uppercase;
+}
+
+.tlogin_bor {
+	width: 70px;
+	height: 2px;
+	background: #3885f0;
+	margin-top: 12px;
+}
+
+.ui-slider-wrap {
+	border-radius: inherit !important;
+}

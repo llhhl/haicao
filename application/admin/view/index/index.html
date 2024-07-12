@@ -1,0 +1,275 @@
+{include file="public/header_min" /}
+   {include file="public/menu" /}
+    <!-- 右侧主体开始 -->
+    <div class="page-content">
+        {include file="public/top" /} 
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+          <ul class="layui-tab-title inx_hometop">
+            <li class="home">我的首页</li>
+          </ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+            	<div class="index_ov">
+	                <ul class="inx_top layui-row" style="padding: 0 20px;margin-top: 20px;">
+	                    <li>
+	                        <a _href="{:url('content/index')}" title="信息总数">
+	                            <div class="inxtop_top">
+	                                <p class="p1">信息总数</p>
+	                                <p class="co1">总数据</p>
+	                            </div>
+	                            <p class="inxtop_num">{$content_count}</p>
+	                            <p class="inxtop_tit">信息总数据量</p>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a _href="{:url('category/index')}" title="栏目总数">
+	                            <div class="inxtop_top">
+	                                <p class="p1">栏目总数</p>
+	                                <p class="co2">总数据</p>
+	                            </div>
+	                            <p class="inxtop_num">{$category_count}</p>
+	                            <p class="inxtop_tit">栏目总数据量</p>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a _href="{:url('diyform/index')}" title="留言数">
+	                            <div class="inxtop_top">
+	                                <p class="p1">留言数</p>
+	                                <p class="co3">总数据</p>
+	                            </div>
+	                            <p class="inxtop_num">{$diyform_count}</p>
+	                            <p class="inxtop_tit">留言总数据量</p>
+	                        </a>
+	                    </li>
+	                    <li>
+	                        <a _href="{:url('user/index')}" title="访问总数">
+	                            <div class="inxtop_top">
+	                                <p class="p1">管理员总数</p>
+	                                <p class="co4">总数据</p>
+	                            </div>
+	                            <p class="inxtop_num">{$user_count}</p>
+	                            <p class="inxtop_tit">管理员总数据量</p>
+	                        </a>
+	                    </li>                   
+	                </ul>
+	                <!--头部结束-->
+	                <div class="inxcen" style="padding: 0 20px;">
+	                    <div class="inxcen_left">
+	                        <div class="inxcen_tit">操作指南</div>
+	                        <ul class="inxcen_lul">
+	                            <li>
+	                                <i></i>
+	                                <p class="inxcen_utit">内容管理</p>
+	                                <p class="inxcen_why"><a href="" title="如何操作内容管理">如何操作内容管理</a></p>
+	                                <div class="inxcen_bot">
+	                                    <a _href="" title="添加">添加</a>
+	                                    <a _href="" title="修改">修改</a>
+	                                    <a _href="" title="删除">删除</a>
+	                                </div>
+	                            </li>
+	                            <li>
+	                                <i></i>
+	                                <p class="inxcen_utit">栏目设置</p>
+	                                <p class="inxcen_why"><a href="" title="如何进行栏目设置">如何进行栏目设置</a></p>
+	                                <div class="inxcen_bot">
+	                                    <a _href="" title="添加">添加</a>
+	                                    <a _href="" title="修改">修改</a>
+	                                    <a _href="" title="删除">删除</a>
+	                                </div>
+	                            </li>
+	                            <li>
+	                                <i></i>
+	                                <p class="inxcen_utit">广告图片管理</p>
+	                                <p class="inxcen_why"><a href="" title="如何对广告图管理">如何对广告图管理</a></p>
+	                                <div class="inxcen_bot">
+	                                    <a _href="" title="添加">添加</a>
+	                                    <a _href="" title="修改">修改</a>
+	                                    <a _href="" title="删除">删除</a>
+	                                </div>
+	                            </li>
+	                            <li>
+	                                <i></i>
+	                                <p class="inxcen_utit">管理员管理</p>
+	                                <p class="inxcen_why"><a href="" title="如何操作内容管理">管理员权限的作用和管理</a></p>
+	                                <div class="inxcen_bot">
+	                                    <a _href="" title="添加">添加</a>
+	                                    <a _href="" title="修改">修改</a>
+	                                    <a _href="" title="删除">删除</a>
+	                                </div>
+	                            </li>
+	                            <li>
+	                                <i></i>
+	                                <p class="inxcen_utit">友情链接</p>
+	                                <p class="inxcen_why"><a href="" title="如何操作内容管理">友情链接的操作方式和作用</a></p>
+	                                <div class="inxcen_bot">
+	                                    <a _href="{:url('link/addlink')}" title="添加">添加</a>
+	                                    <a _href="{:url('link/index')}" title="修改">修改</a>
+	                                    <a _href="{:url('link/index')}" title="删除">删除</a>
+	                                </div>
+	                            </li>
+	                            <li>
+	                                <i></i>
+	                                <p class="inxcen_utit">SEO设置</p>
+	                                <p class="inxcen_why"><a href="" title="如何操作内容管理">SEO的作用和设置</a></p>
+	                                <div class="inxcen_bot">
+	                                    <a _href="{:url('system/seo')}" title="添加">添加</a>
+	                                    <a _href="{:url('system/seo')}" title="修改">修改</a>
+	                                    <a _href="{:url('system/seo')}" title="删除">删除</a>
+	                                </div>
+	                            </li>                           
+	                        </ul>
+	                    </div>
+	                    <div class="inxcen_right">
+	                        <div class="inxcen_tit">售后咨询</div>
+	                        <ul class="inxcen_rul">
+	                            <li>技术支持：023-6263-3701</li>
+	                            <li>QQ咨询：643484547</li>
+	                            <li>公司地址：重庆市两江新区天王星C1栋3楼</li>
+	                        </ul>
+	                        <div class="index_map">
+	                            <div class="autmap">
+	                                <style type="text/css"> label.BMapLabel { display: none !important;} </style>
+	                                <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=iD9NXuhXwdXoWMRfO6brtQcL"></script>
+	                                <div style="width:100%;height:100%;" id="map"></div>
+	                            </div>                          
+	                        </div>
+	                    </div>
+	                </div>
+	                <!--中间结束-->
+	                <!--底部开始-->
+	                <div class="inx_bot">
+	                    <div class="inxcen_tit" style="border-bottom: none;">系统信息</div>
+	                    <table class="layui-table">
+	                        <tr>
+	                            <td>程序版本</td>
+	                            <td>{$version}</td>
+	                            <td>PHP版本</td>
+	                            <td><?PHP echo PHP_VERSION;?></td>
+	                        </tr>
+	                        <tr>
+	                            <td>服务器地址</td>
+	                            <td><?php echo  isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '')?></td>
+	                            <td>MySQL版本</td>
+	                            <td>{$mysql}</td>
+	                        </tr>
+	                        <tr>
+	                            <td>操作系统</td>
+	                            <td><?PHP echo PHP_OS; ?></td>
+	                            <td>系统框架版本</td>
+	                            <td><?php echo THINK_VERSION ?></td>
+	                        </tr>
+	                        <tr>
+	                            <td>运行环境</td>
+	                            <td><?php echo $_SERVER ['SERVER_SOFTWARE']; ?></td>
+	                            
+	                        </tr>                       
+	                    </table>
+	                </div>   
+	                <div class="h20"></div>
+            	</div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="page-content-bg"></div>
+    <!-- 右侧主体结束 -->
+    <!--地图-->
+    <script type="text/javascript">
+                    //创建和初始化地图函数：
+        function initMap(){
+            createMap();//创建地图
+            setMapEvent();//设置地图事件
+            addMapControl();//向地图添加控件
+            addMarker();//向地图中添加marker
+        }
+        
+        //创建地图函数：
+        function createMap(){
+            var map = new BMap.Map("map");//在百度地图容器中创建一个地图
+            var point = new BMap.Point(106.516424,29.621714);//定义一个中心点坐标
+            map.centerAndZoom(point,17);//设定地图的中心点和坐标并将地图显示在地图容器中
+            window.map = map;//将map变量存储在全局
+        }
+        
+        //地图事件设置函数：
+        function setMapEvent(){
+            map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+            map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+            map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+            map.enableKeyboard();//启用键盘上下左右键移动地图
+        }
+        
+        //地图控件添加函数：
+        function addMapControl(){
+            //向地图中添加缩放控件
+        var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+        map.addControl(ctrl_nav);
+            //向地图中添加缩略图控件
+        var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+        map.addControl(ctrl_ove);
+            //向地图中添加比例尺控件
+        var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+        map.addControl(ctrl_sca);
+        }
+        
+        //标注点数组
+        var markerArr = [{title:"微享互动",content:"地址：重庆市两江新区天王星C1栋3楼<br/>联系我们：15320293856",point:"106.515984|29.621275",isOpen:1,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
+             ];
+        //创建marker
+        function addMarker(){
+            for(var i=0;i<markerArr.length;i++){
+                var json = markerArr[i];
+                var p0 = json.point.split("|")[0];
+                var p1 = json.point.split("|")[1];
+                var point = new BMap.Point(p0,p1);
+                var iconImg = createIcon(json.icon);
+                var marker = new BMap.Marker(point,{icon:iconImg});
+                var iw = createInfoWindow(i);
+                var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+                marker.setLabel(label);
+                map.addOverlay(marker);
+                label.setStyle({
+                            borderColor:"#808080",
+                            color:"#333",
+                            cursor:"pointer"
+                });
+                
+                (function(){
+                    var index = i;
+                    var _iw = createInfoWindow(i);
+                    var _marker = marker;
+                    _marker.addEventListener("click",function(){
+                        this.openInfoWindow(_iw);
+                    });
+                    _iw.addEventListener("open",function(){
+                        _marker.getLabel().hide();
+                    })
+                    _iw.addEventListener("close",function(){
+                        _marker.getLabel().show();
+                    })
+                    label.addEventListener("click",function(){
+                        _marker.openInfoWindow(_iw);
+                    })
+                    if(!!json.isOpen){
+                        label.hide();
+                        _marker.openInfoWindow(_iw);
+                    }
+                })()
+            }
+        }
+        //创建InfoWindow
+        function createInfoWindow(i){
+            var json = markerArr[i];
+            var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+            return iw;
+        }
+        //创建一个Icon
+        function createIcon(json){
+            var icon = new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+            return icon;
+        }
+        
+        initMap();//创建和初始化地图
+    </script>    
+</body>
+</html>

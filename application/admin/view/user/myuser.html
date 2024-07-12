@@ -1,0 +1,95 @@
+{include file="public/header_page" /}
+<style type="text/css">
+	.layui-form-item{
+		margin-left: 44px;
+		margin-bottom: 20px;
+	}
+</style>
+</head>
+<body>
+	<form  class="layui-form layui-form-pane" id="formrec" method="post" role="form">
+    <div id="main-container">
+        <div class="main">
+            <div class="main_content" style="width: 800px;padding:0;height: 416px;position: absolute;left: 50%;top: 50%;margin-left: -400px;margin-top: -208px;z-index: 10;background: #fff;min-height: auto;">
+                <div class="title" style="height: 42px;width: 100%;text-indent: 23px;border-bottom: 1px solid #dedede;font-size: 14px;color: #333;background: #f8f8f8;line-height: 42px;margin-bottom: 74px;display: block;">
+                    {$position.name}
+                </div>
+				
+                <input type="hidden" name="id" value="{$info.id}">
+                <input type="hidden" name="status" value="{$info.status}">
+				<div class="layui-form-item">
+		            <label class="layui-form-label">帐户名称</label>
+		            <div class="layui-input-inline">
+		                <input class="layui-input" name="username" type="text" placeholder="帐户名称" lay-verify="title" value="{$info.username}" readonly>
+		            </div>
+		        </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" type="password" name="password" placeholder="不填写则不修改">
+                    </div>
+                </div>
+                
+                <div class="layui-form-item">
+                    <label class="layui-form-label">真实姓名</label>
+                    <div class="layui-input-inline">
+                        <input class="layui-input" type="text" name="real_name" placeholder="真实姓名"  lay-verify="required" value="{$info.real_name}">
+                    </div>
+                </div>		
+		        <div class="layui-form-item">
+		            <label class="layui-form-label"></label>
+		            <div class="layui-input-inline seo_btn" style="margin-left: 18px;margin-top: 20px;">
+		              <button class="btn_sub" lay-submit="" lay-filter="add-role" data-href={:url('myuser')}>提交</button>
+		            </div>
+		        </div>	                
+			</div>
+		
+		</div>
+	</div>
+	</form>
+<script>
+    layui.use(['form','common'], function(){
+        var $ = layui.jquery,common=layui.common,form = layui.form();
+
+        //监听提交
+        form.on('submit(add-role)', function(data){
+            var sub=true;
+            var url=$(this).data('href');
+            if(url){
+                if(sub){
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: data.field,
+                        success: function (info) {
+                            if (info.code == 1) {
+                            	layer.alert(info.msg,{icon: 6},function(){
+                            		window.location.href='{:url('user/myuser')}';
+                            	});                                	
+//                              common.layerAlertSHref(info.msg, '提示', "{:url('user/myuser')}");
+                            }
+                            else {
+                            	layer.alert(info.msg,{icon: 6});
+//                              common.layerAlertE(info.msg, '提示');
+                                $(data.elem).removeAttr("disabled").text("提交");
+                            }
+                        },
+                        beforeSend: function () {
+//                          $(data.elem).attr("disabled", "true").text("提交中...");
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            common.layerAlertE(textStatus, '提示');
+                        }
+                    });
+                }
+            }else{
+                common.layerAlertE('链接错误！', '提示');
+            }
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<div class="layui-form-item">
+							<label class="layui-form-label">自定义键</label>
+							<div class="layui-input-inline key_item">
+                            <input class="layui-input" lay-verify="required" type="text" style="width:70%; float:left" name="tp_kw[]" value="{$data.tp_kw}" aria-invalid="false" placeholder="键名" ><a class="btn btn-default" href="javascript:;" onclick="$(this).closest('.key_item').prev().remove();$(this).closest('.key_item').remove()"><i class="fa fa-remove"></i> 删除</a>
+
+                            <textarea name="tp_value[]" rows="5" class="w400 layui-textarea"style="width:80%;float:left;margin-top:20px;" placeholder="键值" lay-verify="required" aria-invalid="false">{$data.tp_value}</textarea>
+                            <input type="color" name="tp_color[]" value="{$data.tp_color}" style="width:32px;height:32px; float:right;margin-top:20px;" aria-invalid="false" class="layui-input-inline" placeholder="键名颜色">
+                            
+                            <div class="font_tip" style="display:block; clear:both; line-height:30px;">对填充模板 {{first.DATA}} 的值</font></div>
+							
+						</div>
+</div>
+

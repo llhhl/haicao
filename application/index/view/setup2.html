@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>微享CMS安装向导</title>
+<link href="__IndexPublic__/layui/css/layui.css" rel="stylesheet" type="text/css" />
+<link href="__IndexPublic__/css/agree.css" rel="stylesheet" type="text/css" />
+<link href="__IndexPublic__/css/common.css" rel="stylesheet" type="text/css" />
+<script src="__IndexPublic__/js/jquery-3.4.1.min.js"></script>
+<script src="__IndexPublic__/js/install.js"></script>
+<script src="__IndexPublic__/layui/layui.js"></script>
+</head>
+<body>
+<div class="two_main">
+  <div class="m-head">
+    <a href="http://www.cqaaa.com/" target="_blank" class="logo"></a>
+    <h1>欢迎使用微享CMS</h1>
+    <a href="http://www.cqaaa.com/" target="_blank" class="a_home">官方网站</a>
+  </div>
+  <div class="age_col"><img src="__IndexPublic__/argimg/age_col3.png"/></div>
+  <div class="agetwo_con">
+    <p class="age_tit"><span>数据库配置</span></p>
+    <p class="agetwo_bor"></p>
+    <form action="/index.php?s=index/install/setup3" method="post" class="layui-form">  
+    <div class="m-body">
+      <div class="tt"></div>
+      <div class="m-form">        
+          <div class="formitm">
+            <label class="lab">数据库地址：</label>
+            <div class="ipt">
+              <input type="text" lay-verify="db_host"  class="u-element" name="DB_HOST" id="DB_HOST" value="127.0.0.1" />
+            </div>
+            <p class="septh_rfont">数据库服务器地址，一般为127.0.0.1</p>
+          </div>
+          <div class="formitm">
+            <label class="lab">数据库端口：</label>
+            <div class="ipt">
+              <input type="text"  lay-verify="db_post" class="u-element" name="DB_PORT" id="DB_PORT" value="3306" />
+            </div>
+            <p class="septh_rfont">系统数据库端口，一般为3306</p>
+          </div>
+          <div class="formitm">
+            <label class="lab">数据库名称：</label>
+            <div class="ipt">
+              <input type="text" lay-verify="db_name" class="u-element" name="DB_NAME" id="DB_NAME" value="weixiang"  />
+            </div>
+            <p class="septh_rfont">系统数据库名，必须包含字母</p>
+          </div>
+          <div class="formitm">
+            <label class="lab">数据库账号：</label>
+            <div class="ipt">
+              <input type="text" lay-verify="db_user" class="u-element" name="DB_USER" id="DB_USER" value="root"  />
+            </div>
+            <p class="septh_rfont">连接数据库的用户名</p>
+          </div>
+          <div class="formitm">
+            <label class="lab">数据库密码：</label>
+            <div class="ipt">
+              <input type="password" lay-verify="db_pass" class="u-element" name="DB_PWD" id="DB_PWD" placeholder="请输入密码" />
+            </div>
+            <p class="septh_rfont">连接数据库的密码</p>
+          </div>
+          <div class="formitm">
+            <label class="lab">数据表前缀：</label>
+            <div class="ipt">
+              <input type="text" lay-verify="db_firm" class="u-element" name="DB_PREFIX"  value="wx_" id="DB_PREFIX" />
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="thm-foot"> 
+      <a href="/index.php?s=index/install/setup1">返回上一步</a>
+      <button type="submit" class="layui-btn" lay-submit="" class="submit">安装</button>
+    </div>
+    </form>
+  </div>
+</div>
+<script>
+  layui.use(['form'],function(){
+    var form = layui.form;
+    form.verify({
+        db_host: function(value){
+          if(value.length < 1){
+            return '数据库地址不能为空';
+          }
+        },
+        db_post: function(value){
+          if(value.length < 1){
+            return '系统数据库端口不能为空';
+          }
+        },
+        db_name: function(value){
+          if(value.length < 1){
+            return '数据库名称不能为空';
+          }
+        },
+        db_user: function(value){
+          if(value.length < 1){
+            return '数据库账号不能为空';
+          }
+        },
+        db_pass: function(value){
+          if(value.length < 1){
+            return '密码不能为空';
+          }
+        },    
+                     
+    });   
+  })
+</script>
+</body>
+</html>

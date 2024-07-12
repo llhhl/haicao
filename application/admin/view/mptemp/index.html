@@ -1,0 +1,130 @@
+{include file="public/header_page" /}
+<style type="text/css">
+	.new_add{
+		width: 86px !important;
+	}
+	.btnblue{
+		background: #1b8bf5;
+		color: #fff;
+		height: 38px;
+		line-height: 38px;
+	}
+	.wbtn .btnblue{
+		background: #1b8bf5 !important;
+		color: #fff !important;
+	}
+</style>
+</head>
+<body>
+	<div id="main-container">
+		<div class="main">
+			<div class="wbtn" style="margin: 30px 0 0 30px ;">
+				<a class="btn btnblue mr10" href="{:url('addmptemp')}">添加模板</a>
+			</div>							
+			<div class="main_content">
+				<div class="title">
+					
+				</div>				
+				<div class="table" v-el:table>
+					<form id="export-form" method="post" action="{:url('index')}">
+					<table class="layuitable">
+						<thead>
+							<tr>
+								<th class="sort" width="60"><span>ID</span></th>
+								<th width="100"><span>表单名称</span></th>
+								<th width="100"><span>消息模板ID</span></th>
+								<th width="200"><span>操作</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							{notempty name="listinfo"}
+		                    	{volist name="listinfo" id="v"}
+								<tr>
+									<td>{$v.id}</td>
+									<td>{$v.temptitle}</td>
+									<td>{$v.template_id}</td>
+									<td>
+										<a class="btn do-action" data-type="doEdit" data-href="{:url('editmptemp')}" data-id="{$v.id}">编辑</a>
+		                            	<a class="btn do-action" data-type="doDelOne" data-href="{:url('delMpTemp',['ids'=>$v['id']])}" data-index="diyform">删除</a>
+									</td>
+								</tr>
+								{/volist}
+		                    {else /}
+		                        <td colspan="8" class="text-center"> 暂未发现数据! </td>
+		                    {/notempty}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+var index2 = '';
+//表单代码
+function showcode(id){
+	layer.open({
+		type: 2,
+		title: '表单代码',
+		shadeClose: true,
+		area: ['80%', '60%'],
+		skin: 'layui-layer-demo',
+		content: "{:url('showcode')}?id="+id
+	});
+}
+layui.use(['common'], function(){
+    var common=layui.common;
+
+    $(document).on('blur','.sort', function () {
+        var id = $(this).attr('data-id');
+        var obs = $(this);
+        $.ajax({
+            url: '{:url("sortdiymodel")}',
+            dataType: "json",
+            data:{'id':id,'sort':obs.val()},
+            type: "POST",
+            success: function(data){
+                //window.location = window.location;
+            },
+            error:function(ajaxobj)
+            {
+                if(ajaxobj.responseText!='')
+                    alert(ajaxobj.responseText);
+            }
+        });
+    });
+
+    $(document).on('click','.doCopy', function () {
+    	var id = $(this).attr('data-id');
+		var obs = $(this);
+    	layer.confirm("确定复制当前表单？", {
+                title: "提示",
+                btnAlign: 'c',
+                resize: false,
+                icon: 3,
+                btn: ['确定复制', '我再想想'],
+                yes: function () {
+			        $.ajax({
+			            url: '{:url("copydiyform")}',
+			            dataType: "json",
+			            data:{'id':id},
+			            type: "POST",
+			            success: function(info){
+			                if (info.code == 1) {
+	                        	layer.alert(info.msg,{icon: 6},function(){
+	                        		window.location.href='{:url('push/index')}';
+	                        	});  			                	
+//                              common.layerAlertSHref(info.msg, '提示', "{:url('push/index')}");
+                            }
+                            else {
+                                common.layerAlertE(info.msg, '提示');
+                                $(data.elem).removeAttr("disabled").text("提交");
+                            }
+			            }
+			        });
+                }
+        });
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+{include file="public/header_page" /}
+<style type="text/css">
+	/* pages */
+	.fy{ text-align: center; margin: 2rem auto; font-size: 1.4rem;}
+	.fy a{ color: rgba(0,0,0,.75); border: 1px solid #189F92; padding: 1px 6px; margin: 0 1px;}
+	.fy span{background: #189F92; padding: 2px 7px; color: #fff; margin: 0 1px;}
+	.fy a:hover{ background: #189F92; color: #fff;}
+	.pagination li{display: inline-block;vertical-align: top;}
+</style>
+</head>
+<body>
+	<div id="main-container">
+		<a class="new_add mls30" data-type="doAdd" href="{:url('adduser')}">新增</a>
+<!--		<a class="export layui-btn layui-btn-normal" data-type="doExport" href="{:url('doexport')}">导出测试</a>-->
+		<div class="main">
+			<div class="main_content">
+				<div class="title">
+					<span>{$position.name}</span>
+				</div>
+				<div class="table" v-el:table>
+					<table>
+						<thead>
+							<tr>
+								<th width="60"><span>ID</span></th>
+								<th width="100"><span>真实姓名</span></th>
+								<th class="sort" width="150"><span>联系方式</span></th>
+								<th width="100"><span>性别</span></th>
+								<th width="100"><span>城市</span></th>
+                                <th class="sort" width="150"><span>工号</span></th>
+								<th width="100"><span>账户状态</span></th>
+								<th width="100"><span>下载权限</span></th>
+								<th width="150"><span>操作</span></th>
+							</tr>
+						</thead>
+						<tbody>
+							{foreach name="infolist" item="v"}
+			                <tr>
+			                    <td>{$v.id}</td>
+								<td>{$v.real_name}</td>
+								<td>{$v.mobile}</td>
+								<td>
+									{if condition="$v.sex eq 1"}
+									男
+									{else/}
+									女
+									{/if}
+								</td>
+                                <td>{$v.area_id}</td>
+                                <td>{$v.job_number}</td>
+			                    <td>
+			                        <a href="javascript:;" class="change_status" data-id="{$v.id}"> <div  class="layui-unselect layui-form-switch {if condition="$v.status eq 1"}layui-form-onswitch{/if}"><i></i></div> </a>
+			                    </td>
+                                <td>
+                                    <a href="javascript:;" class="change_download" data-id="{$v.id}"> <div  class="layui-unselect layui-form-switch {if condition="$v.download eq 1"}layui-form-onswitch{/if}"><i></i></div> </a>
+                                </td>
+			                    <td>
+		                            <a class="btn do-action" data-type="doEdit" data-href="{:url('edituser')}" data-id="{$v.id}">编辑</a>
+		                            <a class="btn do-action" data-type="doDelOne"  data-href="{:url('deluser',['ids'=>$v['id']])}" data-index="{$v.id}">删除</a>
+			                    </td>
+			                </tr>
+			                {/foreach}
+						</tbody>
+					</table>
+				</div>
+
+		<div class="fy">{$page}</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+    layui.use(['layer','common'], function () {
+        var $ = layui.jquery, layer = layui.layer;
+
+        $(document).on('click','.change_status', function () {
+            var id=$(this).attr('data-id');
+            var obs=$(this);
+            $.ajax({
+                url: '{:url("stateuser")}',
+                dataType: "json",
+                data:{'id':id},
+                type: "POST",
+                success: function(data){
+                    if(data.code == 1){
+                        obs.find('div').removeClass('layui-form-onswitch');
+                        layer.msg(data.msg,{icon:2,time:1500,shade: 0.1,});
+                    }else{
+                        obs.find('div').addClass('layui-form-onswitch');
+                        layer.msg(data.msg,{icon:1,time:1500,shade: 0.1,});
+                    }
+                },
+                error:function(ajaxobj)
+                {
+                    if(ajaxobj.responseText!='')
+                        alert(ajaxobj.responseText);
+                }
+            });
+        });
+
+
+
+
+        $(document).on('click','.change_download', function () {
+            var id=$(this).attr('data-id');
+            var obs=$(this);
+            $.ajax({
+                url: '{:url("downloaduser")}',
+                dataType: "json",
+                data:{'id':id},
+                type: "POST",
+                success: function(data){
+                    if(data.code == 1){
+                        obs.find('div').removeClass('layui-form-onswitch');
+                        layer.msg(data.msg,{icon:2,time:1500,shade: 0.1,});
+                    }else{
+                        obs.find('div').addClass('layui-form-onswitch');
+                        layer.msg(data.msg,{icon:1,time:1500,shade: 0.1,});
+                    }
+                },
+                error:function(ajaxobj)
+                {
+                    if(ajaxobj.responseText!='')
+                        alert(ajaxobj.responseText);
+                }
+            });
+        });
+
+
+    });
+</script>
+</body>
+</html>

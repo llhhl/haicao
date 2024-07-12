@@ -1,0 +1,92 @@
+{include file="public/header_page" /}
+</head>
+<body>
+	<form  class="layui-form layui-form-pane" id="formrec" method="post" role="form">
+		<div id="main-container">
+			<div class="main">
+				<div class="main_content">
+					<div class="title">
+						<span>{$position.name}</span>
+					</div>
+					
+					<div class="layui-form-item">
+			            <label class="layui-form-label">是否开启</label>
+			            <div class="layui-input-inline" style="width:100px;">
+			                <input type="checkbox" {if config('sys.disablewords_status') eq 1}checked{/if} name="disablewords_status" lay-skin="switch" lay-filter="switchTest">
+			            </div>
+			            <font class="font_tip" style="line-height: 38px;">开启后，内容文字将按以下信息替换，每行一个词组，如果逗号后面不填，正文则替换为空，如果填写，则替换成对应词组</font>
+			        </div>
+	
+			        <div class="layui-form-item disablewords {if config('sys.disablewords_status') neq 1}none{/if}">
+			            <label class="layui-form-label">禁用词</label>
+			            <div class="layui-input-inline">
+			                <textarea class="layui-textarea w450" name="disablewords_content" rows="20">{:config('sys.disablewords_content')}</textarea>
+			            </div> 
+			        </div>			 
+				</div>
+			</div>
+			<div class="layui-form-item">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-inline seo_btn">
+	              	<button class="btn" lay-submit="" lay-filter="save" data-href='{:url('disablewords')}'>提交</button>
+	              	<a href="javascript:history.go(-1)">返回</a>
+                </div>
+	       </div>			
+		</div>
+	</form>
+<script>
+layui.use(['form','common'], function(){
+        var $ = layui.jquery;
+        $form = $('form');
+        var form = layui.form(),layer = layui.layer,common=layui.common;
+
+        //监听提交
+        form.on('submit(save)', function(data){
+            var sub = true;
+            var url = $(this).data('href');
+            if(url){
+                if(sub){
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: data.field,
+                        success: function (info) {
+                            if (info.code == 1) {
+                            	layer.alert(info.msg,{icon: 6},function(){
+                            		window.location.href='/index.php/admin/system/disablewords';
+                            	});                            	
+//                              common.layerAlertSHref(info.msg, '提示', "{:url('system/disablewords')}");
+                            }
+                            else {
+                                common.layerAlertE(info.msg, '提示');
+                                $(data.elem).removeAttr("disabled").text("提交");
+                            }
+                        },
+                        beforeSend: function () {
+//                          $(data.elem).attr("disabled", "true").text("提交中...");
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            common.layerAlertE(textStatus, '提示');
+                        }
+                    });
+                }
+            }else{
+                common.layerAlertE('链接错误！', '提示');
+            }
+            return false;
+        });
+
+        form.on('switch(switchTest)', function(data) {
+        	if (this.checked) {
+				console.log(1)
+        		$(".disablewords").show();
+        	}else{
+				console.log(2)
+        		$(".disablewords").hide();
+        	}
+        });
+    });
+</script>
+</body>
+</html>

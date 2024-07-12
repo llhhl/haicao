@@ -1,0 +1,208 @@
+{include file="public/header_page" /}
+<script src="/statics/layui/lay/modules/laydate.js"></script>
+<style type="text/css">
+
+    /* pages */
+    .fy{ text-align: center; margin: 2rem auto; font-size: 1.4rem;}
+    .fy a{ color: rgba(0,0,0,.75); border: 1px solid #189F92; padding: 1px 6px; margin: 0 1px;}
+    .fy span{background: #189F92; padding: 2px 7px; color: #fff; margin: 0 1px;}
+    .fy a:hover{ background: #189F92; color: #fff;}
+    .pagination li{display: inline-block;vertical-align: top;}
+</style>
+</head>
+<body>
+<div id="main-container">
+    <form class="layui-form">
+        <blockquote class="layui-elem-quote quoteBox">
+            <form id="bdcs-search-form" autocomplete="off" class="bdcs-search-form" target="_blank" method="get"
+                  action="{:url('/index')}">
+                <div class="layui-input-inline">
+                    <div class="layui-inline">
+                        <input type="text" name="house_address" autocomplete="off" value="{$house_address}" lay-verify=""
+                               placeholder="请输入城市" class="layui-input house_address">
+                    </div>
+
+
+                    <div class="layui-inline">
+                        <input type="text" name="client_mobile" autocomplete="off" value="{$client_mobile}" lay-verify=""
+                               placeholder="请输入客户手机号" class="layui-input client_mobile">
+                    </div>
+
+                    <div class="layui-inline">
+                        <input type="text" name="job_number" autocomplete="off" value="{$job_number}" lay-verify=""
+                               placeholder="请输入员工工号" class="layui-input job_number">
+                    </div>
+
+
+                    <!--                    开始时间-->
+                    <div class="layui-inline">
+                        <input class="layui-input start_time" autocomplete="off" value="{$start_time}" name="start_time"
+                               placeholder="开始时间" value=""
+                               onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD'})" lay-verify="">
+                    </div>
+                    -
+                    <!--                    结束时间-->
+                    <div class="layui-inline">
+                        <input class="layui-input end_time" autocomplete="off" value="{$end_time}" name="end_time"
+                               placeholder="结束时间" value=""
+                               onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD'})" lay-verify="">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <button type="submit" class="layui-btn layui-btn-norma search_btn"><span>搜索</span></button>
+                    <a id="doexport" class="layui-btn">导出</a>
+                </div>
+
+            </form>
+        </blockquote>
+    </form>
+
+    <div class="layui-inline">
+    <a class="do-action layui-btn" id="doDelete" style="margin-left: 35px">删除</a>
+    </div>
+    <div class="main">
+        <div class="main_content">
+            <div class="title">
+                <span>{$position.name}</span>
+            </div>
+            <div class="table" v-el:table>
+
+                {if condition="$infolist==[]"}
+                <div style="text-align: center;color: #f8bd09">没有更多数据</div>
+                {else /}
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="50"><input class="i-checks checkbox check-all" type="checkbox"></th>
+                        <th width="60"><span>ID</span></th>
+                        <th class="sort" width="150"><span>员工工号</span></th>
+                        <th width="100"><span>客户姓名</span></th>
+                        <th width="100"><span>楼盘名称</span></th>
+                        <th width="100"><span>城市</span></th>
+                        <th width="100"><span>联系电话</span></th>
+                        <th width="100"><span>PDF地址</span></th>
+                        <th width="100"><span>房屋类型</span></th>
+                        <th width="100"><span>备注</span></th>
+                        <th width="100"><span>创建时间</span></th>
+                        <th width="150"><span>操作</span></th>
+                    </tr>
+                    </thead>
+                    <tbody class="layuitable">
+                    {foreach name="infolist" item="v"}
+                    <tr>
+                        <td><input class="ids i-checks" type="checkbox" name="ids[]" ids="{$v.id}"></td>
+                        <td>{$v.id}</td>
+                        <td>{$v.job_number}</td>
+                        <td>{$v.client_username}</td>
+                        <td>{$v.house_name}</td>
+                        <td>{$v.house_address}</td>
+                        <td>{$v.client_mobile}</td>
+                        <td><a href="/admin/Report/download/id/{$v.id}"><span style="color: darkcyan">[查看]</span></a>
+                        </td>
+
+                        {if condition="$v.house_type==0"}
+                        <td>精装房</td>
+                        {else /}
+                        <td>毛坯房</td>
+                        {/if}
+
+                        <td>{$v.remark}</td>
+                        <td>{$v.create_time|date="Y年m月d日",###}</td>
+                        <td>
+                            <a class="btn do-action" data-type="doDelOne"
+                               data-href="{:url('delreport',['ids'=>$v['id']])}" data-index="user">删除</a>
+                        </td>
+                    </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+                {/if}
+            </div>
+<!--            分页-->
+            <div class="fy">{$page}</div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    layui.use(['form', 'common'], function () {
+        var $ = layui.jquery;
+        $form = $('form');
+        var form = layui.form(), layer = layui.layer, common = layui.common;
+
+
+        $(document).on('click', '.change_status', function () {
+            var id = $(this).attr('data-id');
+            var obs = $(this);
+            $.ajax({
+                url: '{:url("stateuser")}',
+                dataType: "json",
+                data: {'id': id},
+                type: "POST",
+                success: function (data) {
+                    if (data.code == 1) {
+                        obs.find('div').removeClass('layui-form-onswitch');
+                        layer.msg(data.msg, {icon: 2, time: 1500, shade: 0.1,});
+                    } else {
+                        obs.find('div').addClass('layui-form-onswitch');
+                        layer.msg(data.msg, {icon: 1, time: 1500, shade: 0.1,});
+                    }
+                },
+                error: function (ajaxobj) {
+                    if (ajaxobj.responseText != '')
+                        alert(ajaxobj.responseText);
+                }
+            });
+        });
+        // 导出
+        $(document).on('click', '#doexport', function () {
+            var area_id = $(".house_address").val();
+            var start_time = $(".start_time").val();
+            var end_time = $(".end_time").val();
+            var job_number = $(".job_number").val();
+            var client_mobile = $(".client_mobile").val();
+            var url = '{:url("doexport")}' + '?area_id=' + area_id + '&job_number=' + job_number + '&start_time=' + start_time + '&end_time=' + end_time+'&client_mobile='+client_mobile;
+            window.location.href = url
+
+        })
+
+
+        //删除
+        $(document).on('click','#doDelete', function () {
+
+            if (1 > $(".layuitable input:checked").size()){
+                layer.alert("对不起，请选中您要操作的记录！", { title: "提示", icon: 2, time: 5000, resize: false, zIndex: layer.zIndex });
+            }else{
+                for (var c = "", d = $(".layuitable input:checked"), e = 0; e < d.length; e++) d[e].checked && "disabled" != $(d[e]).attr("disabled") && (c += $(d[e]).attr("ids") + ",");
+                $.ajax({
+                    url: '{:url("delbyids")}',
+                    dataType: "json",
+                    data:{'ids':c},
+                    type: "POST",
+                    success: function(data){
+                        if(data.code == 0){
+                            layer.msg(data.msg,{icon:1,time:0});
+                            setTimeout(function(){
+                                window.location.href = '/index.php/admin/report/report_list';
+                            },1000)
+                        }
+                    }
+                });
+            }
+
+
+
+
+        });
+    })
+
+
+</script>
+
+
+</body>
+</html>

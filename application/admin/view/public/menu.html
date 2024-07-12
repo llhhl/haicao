@@ -1,0 +1,26 @@
+<!-- 左侧菜单开始 -->
+    <div class="left-nav">
+      <div class="logo"><a href="{:url('index/index')}"></a></div>     
+      <div id="side-nav">
+        <ul id="nav">
+          {foreach name="menu" item="v"}
+            <li>
+                <a href="javascript:;">
+                    <i class="layui-icon">{$v.icon}</i>
+                    <cite>{$v.title}</cite>
+                    <i class="iconfont nav_right">&#xe6a7;</i>
+                </a>
+                {notempty name="$v.children"}
+                <ul class="sub-menu">
+                  {foreach name="$v.children" item="vo"}
+                      <li><a _href="{$vo.href}"><i class="iconfont">&#xe6a7;</i><cite>{$vo.title}</cite></a></li>
+                    {/foreach}
+                </ul>
+                {/notempty}
+            </li>
+            {/foreach} 
+           </ul>
+      </div>
+    </div>
+    <!-- <div class="x-slide_left"></div> -->
+    <!-- 左侧菜单结束 -->

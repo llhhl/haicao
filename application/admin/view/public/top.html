@@ -1,0 +1,97 @@
+<!-- 顶部开始 -->
+<div class="container">
+    <div class="left_open">
+        <p title="展开左侧栏" class="openfont"></p>
+    </div>
+    <ul class="layui-nav right" lay-filter="">
+      <li class="layui-nav-item">
+        <a href="javascript:;" class="inx_add">{:session('admin_username')}<i></i></a>
+        <dl class="layui-nav-child" style="z-index: 120;"> <!-- 二级菜单 -->
+          <dd class="modiy_pass"><a onclick="x_admin_show('我的账户','{:url('user/myuser')}')">修改密码</a></dd>
+            <dd class="modiy_pass"><a onclick="x_admin_prompt('请问您是要清除缓存文件吗?')">清除缓存</a></dd>
+          <!--<dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>-->
+          <dd><a data-type="doLoginOut" href="{:url('index/loginout')}" ta-rturl="/{:config('sys.login_url')}" class="doLoginOut">退出</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item inx_home"><a href="/" target="_blank">前端首页</a></li>
+    </ul>       
+</div>   
+<script>
+layui.use(['layer'], function () {
+    var $ = layui.jquery ;
+//  common = layui.common
+    //退出系统
+//  var adminActive = {
+//      doLoginOut: function () {
+//          var url = $(this).data('href');
+//          var rturl = $(this).data('rturl');
+//          if (url) {
+//              common.signOut('确认退出系统？', '请再次确认是否要退出系统！', url, rturl, 'post', 'json', {});
+//          }
+//          else {
+//              common.layerAlertE('链接错误！', '提示');
+//          }
+//      }
+//  };
+
+    $('.doLoginOut').on('click', function (event) {
+        var type = $(this).data('type');
+        adminActive[type] ? adminActive[type].call(this) : '';
+        return false;
+    });
+
+    $(document).on('click','.doCache', function () {
+        $.ajax({
+            	url: '{:url("index/cache")}',
+                dataType: "json",
+                type: "POST",
+                success: function(data){
+                    layer.msg(data.msg,{icon:1,time:500,shade: 0.1,});
+                },
+                error:function(ajaxobj)
+                {
+                    if(ajaxobj.responseText!='')
+                        alert(ajaxobj.responseText);
+                }
+       	});
+  	});
+
+ });
+
+// 清理缓存
+function x_admin_prompt(mes) {
+    console.log(mes)
+    var mes = mes ? mes :"请问要继续操作吗？"
+    layer.confirm(mes, {
+        btn: ['是','否'] //按钮
+    }, function(index){
+        // 开始进行ajax请求清理缓存
+        $.ajax({
+            url: '{:url("index/clear_runtime")}',
+            dataType: "json",
+            type: "GET",
+            beforeSend: function (XMLHttpRequest) {
+                layer.close(index);
+                //注意，layer.msg默认3秒自动关闭，如果数据加载耗时比较长，需要设置time
+                loadingFlag= layer.msg('正在提交，请稍候……', { icon: 16, shade: 0.01,shadeClose:false,time:60000 });
+            },
+            success: function(data){
+                if (data.status == 200)
+                {
+                    layer.msg(data.msg,{icon:1,time:500,shade: 0.1,});
+                }
+            },
+            complete: function (XMLHttpRequest, textStatus) {
+                layer.close(loadingFlag);
+            },
+            error:function(ajaxobj)
+            {
+                layer.msg("稍等，服务器开小差去了")
+            }
+        });
+    }, function(){
+        layer.closeAll()
+    });
+
+}
+</script>

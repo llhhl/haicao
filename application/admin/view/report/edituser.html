@@ -1,0 +1,595 @@
+{include file="public/header_page" /}
+
+</head>
+
+<body>
+
+	<form  class="layui-form layui-form-pane" id="formrec" method="post" role="form">
+
+    <div id="main-container">
+
+        <div class="main">
+
+            <div class="main_content">
+
+                <div class="title">
+
+                    <span>{$position.name}</span>
+
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">头像</label>
+
+                    <div class="layui-input-inline">
+
+                        <input id="path1" class="layui-input" type="text" name="avatar" value="{$info.avatar}"><br>
+
+                        <img id="img_path1" class="defimg" onerror="javascript:this.style.display='none';" src="{$info.avatar}">
+
+                    </div>
+
+                    <div class="layui-input-inline w450">
+
+                        <input type="button" rel="path1" value="选择站内图片" class="fl mybtn BrowerPicture file_btn" />
+
+                        <div class="site-demo-upload upload-img fl ml5">
+
+                            <div class="site-demo-upbar">
+
+                                <input type="file" name="file" class="layui-upload-file" id="upload-image">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <input type="hidden" name="id" value="{$info.id}">
+
+
+
+
+
+
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">联系方式</label>
+
+                    <div class="layui-input-inline">
+
+                        <input class="layui-input" type="text" name="mobile" placeholder="联系方式"  lay-verify="required" value="{$info.mobile}">
+
+                    </div>
+
+                    <div class="layui-form-mid layui-word-aux">用户登录方式</div>
+
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">密码</label>
+
+                    <div class="layui-input-inline">
+
+                        <input class="layui-input" type="password" name="password" placeholder="密码">
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">工号</label>
+
+                    <div class="layui-input-inline">
+
+                        <input class="layui-input" type="text" name="job_number" placeholder="工号"  lay-verify="required" value="{$info.job_number}">
+
+                    </div>
+
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">真实姓名</label>
+
+                    <div class="layui-input-inline">
+
+                        <input class="layui-input" type="text" name="real_name" placeholder="真实姓名"  lay-verify="required" value="{$info.real_name}">
+
+                    </div>
+
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">性别</label>
+
+                    <div class="layui-input-inline" style="width: 300px">
+
+                        <select data-val="true" lay-filter="sex" name="sex">
+
+                            <option selected="selected" value="0">请选择</option>
+
+                            <option  value="1" {if condition="$info['sex'] eq 1"}selected{/if}>男</option>
+
+                            <option  value="2" {if condition="$info['sex'] eq 2"}selected{/if}>女</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">城市</label>
+
+                    <div class="layui-input-inline" style="width: 300px">
+
+                        <input class="layui-input" type="text" name="area_id" placeholder="城市"  lay-verify="required" value="{$info.area_id}">
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">收款二维码</label>
+
+                    <div class="layui-input-inline">
+
+                        <input id="path2" class="layui-input" type="text" name="principal_phone" value="{$info.principal_phone}"><br>
+
+                        <img id="img_path2" class="defimg" onerror="javascript:this.style.display='none';" src="{$info.principal_phone}">
+
+                    </div>
+
+                    <div class="layui-input-inline w450">
+
+                        <input type="button" rel="path2" value="选择站内图片" class="fl mybtn BrowerPicture file_btn" />
+
+                        <div class="site-demo-upload upload-img fl ml5">
+
+                            <div class="site-demo-upbar">
+
+                                <input type="file" name="file" class="layui-upload-file" id="upload-image1">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">客服微信</label>
+
+                    <div class="layui-input-inline">
+
+                        <input id="path3" class="layui-input" type="text" name="principal_phone1" value="{$info.principal_phone1}"><br>
+
+                        <img id="img_path3" class="defimg" onerror="javascript:this.style.display='none';" src="{$info.principal_phone1}">
+
+                    </div>
+
+                    <div class="layui-input-inline w450">
+
+                        <input type="button" rel="path3" value="选择站内图片" class="fl mybtn BrowerPicture file_btn" />
+
+                        <div class="site-demo-upload upload-img fl ml5">
+
+                            <div class="site-demo-upbar">
+
+                                <input type="file" name="file" class="layui-upload-file" id="upload-image2">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">公众号二维码</label>
+
+                    <div class="layui-input-inline">
+
+                        <input id="path4" class="layui-input" type="text" name="principal_phone2" value="{$info.principal_phone2}"><br>
+
+                        <img id="img_path4" class="defimg" onerror="javascript:this.style.display='none';" src="{$info.principal_phone2}">
+
+                    </div>
+
+                    <div class="layui-input-inline w450">
+
+                        <input type="button" rel="path4" value="选择站内图片" class="fl mybtn BrowerPicture file_btn" />
+
+                        <div class="site-demo-upload upload-img fl ml5">
+
+                            <div class="site-demo-upbar">
+
+                                <input type="file" name="file" class="layui-upload-file" id="upload-image3">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">账户状态</label>
+
+                    <div class="layui-input-inline">
+
+                        <input type="checkbox" {if $info.status eq 1}checked{/if} name="status" lay-skin="switch" lay-filter="switchTest" lay-text="开启|禁用"><div class="layui-unselect layui-form-switch layui-form-onswitch"><i></i></div>
+
+                    </div>
+
+                </div>
+
+                <div class="layui-form-item">
+
+                    <label class="layui-form-label">下载权限</label>
+
+                    <div class="layui-input-inline">
+
+                        <input type="checkbox" {if $info.download eq 1}checked{/if} name="download" lay-skin="switch" lay-filter="switchTest" lay-text="开启|禁用"><div class="layui-unselect layui-form-switch layui-form-onswitch"><i></i></div>
+
+                    </div>
+
+                </div>
+
+				
+
+			</div>
+
+		</div>
+
+        <div class="layui-form-item">
+
+            <label class="layui-form-label"></label>
+
+            <div class="layui-input-inline seo_btn">
+
+              <button class="btn" lay-submit="" lay-filter="add-role" data-href={:url('edituser')}>提交</button>
+
+              <a href="javascript:history.go(-1)">返回</a>
+
+            </div>
+
+        </div>	
+
+        <div class="h20"></div>
+
+	</div>
+
+	</form>
+
+<!--    <script type="text/javascript" src="/statics/ueditor/ueditor.config.js"></script>-->
+
+<!--    <script type="text/javascript" src="/statics/ueditor/ueditor.all.min.js"></script>-->
+
+<!--    <script type="text/javascript">-->
+
+<!--        var ue = UE.getEditor('container',{initialFrameWidth:'800',initialFrameHeight:400});-->
+
+<!--    </script>-->
+
+<script>
+
+    layui.use(['form','common','upload'], function(){
+
+        var $ = layui.jquery;
+
+        $form = $('form');
+
+        var form = layui.form(),layer = layui.layer, common=layui.common;
+
+
+
+        form.verify({
+
+            title:function(value){
+
+                if(value == ""){
+
+                    return '管理员名称不能为空';
+
+                }
+
+            }
+
+        });
+
+        //上传图片
+
+        layui.upload({
+
+            url: "{:url('Upload/upload',['file'=>'file'])}" //上传接口
+
+            ,before: function(input){
+
+                //console.log('图片上传中');
+
+            }
+
+            ,title:'上传图片'
+
+            ,elem: '#upload-image' //指定原始元素，默认直接查找class="layui-upload-file"
+
+            ,method: 'post' //上传接口的http类型
+
+            ,ext: '{:str_replace(',','|',config('sys.upload_image_ext'))}'
+
+            ,type:'images'
+
+            ,success: function(data){ //上传成功后的回调
+
+            if(data.status == 1){
+
+                $("#path1").val(data.image_name);
+
+                $("#img_path1").attr('src', data.image_name).show();
+
+            }else{
+
+                alert(data.error_info);
+
+            }
+
+        }
+
+    });
+
+        //上传图片
+
+        layui.upload({
+
+            url: "{:url('Upload/upload',['file'=>'file'])}" //上传接口
+
+            ,before: function(input){
+
+                //console.log('图片上传中');
+
+            }
+
+            ,title:'上传图片'
+
+            ,elem: '#upload-image1' //指定原始元素，默认直接查找class="layui-upload-file"
+
+            ,method: 'post' //上传接口的http类型
+
+            ,ext: '{:str_replace(',','|',config('sys.upload_image_ext'))}'
+
+            ,type:'images'
+
+            ,success: function(data){ //上传成功后的回调
+
+            if(data.status == 1){
+
+                $("#path2").val(data.image_name);
+
+                $("#img_path2").attr('src', data.image_name).show();
+
+            }else{
+
+                alert(data.error_info);
+
+            }
+
+        }
+
+    });
+
+        //上传图片
+
+        layui.upload({
+
+            url: "{:url('Upload/upload',['file'=>'file'])}" //上传接口
+
+            ,before: function(input){
+
+                //console.log('图片上传中');
+
+            }
+
+            ,title:'上传图片'
+
+            ,elem: '#upload-image2' //指定原始元素，默认直接查找class="layui-upload-file"
+
+            ,method: 'post' //上传接口的http类型
+
+            ,ext: '{:str_replace(',','|',config('sys.upload_image_ext'))}'
+
+            ,type:'images'
+
+            ,success: function(data){ //上传成功后的回调
+
+            if(data.status == 1){
+
+                $("#path3").val(data.image_name);
+
+                $("#img_path3").attr('src', data.image_name).show();
+
+            }else{
+
+                alert(data.error_info);
+
+            }
+
+        }
+
+    });
+
+
+
+        //上传图片
+
+        layui.upload({
+
+            url: "{:url('Upload/upload',['file'=>'file'])}" //上传接口
+
+            ,before: function(input){
+
+                //console.log('图片上传中');
+
+            }
+
+            ,title:'上传图片'
+
+            ,elem: '#upload-image3' //指定原始元素，默认直接查找class="layui-upload-file"
+
+            ,method: 'post' //上传接口的http类型
+
+            ,ext: '{:str_replace(',','|',config('sys.upload_image_ext'))}'
+
+            ,type:'images'
+
+            ,success: function(data){ //上传成功后的回调
+
+            if(data.status == 1){
+
+                $("#path4").val(data.image_name);
+
+                $("#img_path4").attr('src', data.image_name).show();
+
+            }else{
+
+                alert(data.error_info);
+
+            }
+
+        }
+
+    });
+
+
+
+
+
+        $('.BrowerPicture').click(function(){
+
+            var path = $(this).attr('rel');
+
+            layer.open({
+
+                type: 2,
+
+                title: '选择站内图片',
+
+                shadeClose: true,
+
+                shade: false,
+
+                anim: 2,
+
+                area: ['750px', '350px'],
+
+                content: ['{:url('upload/browsefile', array('stype' => 'picture'))}?docname='+path]
+
+            });
+
+        });
+
+
+
+
+
+        //监听提交
+
+        form.on('submit(add-role)', function(data){
+
+            var sub=true;
+
+            var url=$(this).data('href');
+
+            if(url){
+
+                if(sub){
+
+                    $.ajax({
+
+                        url: url,
+
+                        type: 'post',
+
+                        dataType: 'json',
+
+                        data: data.field,
+
+                        success: function (info) {
+
+                            if (info.code == 1) {
+
+                            	layer.alert(info.msg,{icon: 6},function(){
+
+                            		window.location.href='{:url('report/index')}';
+
+                            	});                                	
+
+//                              common.layerAlertSHref(info.msg, '提示', "{:url('user/index')}");
+
+                            }
+
+                            else {
+
+                                common.layerAlertE(info.msg, '提示');
+
+                                $(data.elem).removeAttr("disabled").text("提交");
+
+                            }
+
+                        },
+
+                        beforeSend: function () {
+
+//                          $(data.elem).attr("disabled", "true").text("提交中...");
+
+                        },
+
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                            common.layerAlertE(textStatus, '提示');
+
+                        }
+
+                    });
+
+                }
+
+            }else{
+
+                common.layerAlertE('链接错误！', '提示');
+
+            }
+
+            return false;
+
+        });
+
+    });
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+{include file="public/header" /}
+<style type="text/css">
+	.layui-form-onswitch{
+		background-color: #1b8bf5;
+	}
+	.layui-form-radio i:hover, .layui-form-radioed i {
+		color: #1b8bf5;
+	}	
+</style>
+</head>
+<body>
+	<form  class="layui-form layui-form-pane" id="formrec" method="post" role="form">	
+	<div id="main-container">
+		<div class="main">
+			<div class="main_content">
+					<div class="title_bar mb20">
+						阿里云短信提醒&nbsp;&nbsp;&nbsp;&nbsp;<font class="font_tip">设置填写后请进行测试短信验证配置是否正确</font>
+					</div>
+
+					<div class="layui-form-item">
+			            <label class="layui-form-label">开启短信提醒</label>
+			            <div class="layui-input-inline" style="width:100px;">
+			                <input type="checkbox" {if config('sms.sms_send') eq 1}checked{/if} name="sms_send" lay-skin="switch" lay-filter="switchTest">
+			            </div>			         
+			        </div>
+
+					<div class="disablewords {if config('sms.sms_send') neq 1}none{/if}" >
+						<div class="layui-form-item">
+							<label class="layui-form-label">AccessKeyID</label>
+							<div class="layui-input-inline">
+								<input class="layui-input" lay-verify="required" type="text" name="accessKeyId" value="{:config('sms.accessKeyId')}" placeholder="">
+							</div>
+							<font class="font_tip">示例：LTAIa******T8kBP</font>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label">AccessKeySecret</label>
+							<div class="layui-input-inline">
+								<input class="layui-input" lay-verify="required" type="text" name="accessKeySecret" value="{:config('sms.accessKeySecret')}" placeholder="" >
+							</div>
+							<font class="font_tip">示例：jib**************QV1DsQkK9OVhP</font>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label">短信签名</label>
+							<div class="layui-input-inline">
+								<input class="layui-input" lay-verify="required" type="text" name="sign" value="{:config('sms.sign')}" placeholder="" >
+							</div>
+							<font class="font_tip">示例：微点通</font>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label">短信模板ID</label>
+							<div class="layui-input-inline">
+								<input class="layui-input" lay-verify="required" type="text" name="codeid" value="{:config('sms.codeid')}" placeholder="" >
+							</div>
+							<font class="font_tip">示例：SMS_16*****05</font>
+						</div>		
+						<div class="layui-form-item">
+							<label class="layui-form-label">发送模式</label>
+							<div class="layui-input-inline">
+								<input type="radio" name="sms_object" {if config('sms.sms_object') eq 1}checked{/if} value="1"  lay-filter="urlmodel" title="管理员" checked="checked">
+								<input type="radio" name="sms_object" {if config('sms.sms_object') eq 2}checked{/if} value="2"  lay-filter="urlmodel" title="用户">
+							</div>
+						</div>
+
+						<div class="layui-form-item radionum">
+							<label class="layui-form-label">管理员电话</label>
+							<div class="layui-input-inline">
+								<input lay-verify="tellphone" class="layui-input" type="text" name="phone" value="{:config('sms.phone')}" placeholder="" >
+							</div>
+						</div>
+										
+					</div>
+					
+				
+
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label"></label>
+			<div class="layui-input-inline seo_btn">
+				<button class="btn" lay-submit="" lay-filter="save" data-href='{:url('smsremind')}'>提交</button>
+				<a href="javascript:history.go(-1)">返回</a>
+			</div>
+		</div>
+		
+	</div>
+	</form>
+<!-- <link rel="stylesheet" href="__ADM_PUBLIC__/css/webuploader.css">
+<script type="text/javascript" src="__ADM_PUBLIC__/js/webuploader.js"></script> -->
+
+<script>
+layui.use(['form','common','upload'], function(){
+        var $ = layui.jquery;
+        $form = $('form');
+        var form = layui.form(),layer = layui.layer,common=layui.common;
+		var mobile = /^1[3|4|5|7|8]\d{9}$/;
+        //监听提交
+        form.on('submit(save)', function(data){
+
+            var sub = true;
+            var url = $(this).data('href');
+            if(url){
+                if(sub){
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: data.field,
+                        success: function (info) {
+                            if (info.code == 1) {
+                            	layer.alert(info.msg,{icon: 6},function(){
+                            		window.location.href='{:url('diyform/smsremind')}';
+                            	});  								
+                                // common.layerAlertSHref(info.msg, '提示', "{:url('diyform/smsremind')}");
+                            }
+                            else {
+                                common.layerAlertE(info.msg, '提示');
+                            }
+                        },
+                        beforeSend: function () {
+                            // $(data.elem).attr("disabled", "true").text("提交中...");
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            common.layerAlertE(textStatus, '提示');
+                        }
+                    });
+                }
+            }else{
+                common.layerAlertE('链接错误！', '提示');
+            }
+            return false;
+        });
+        form.on('switch(switchTest)', function(data) {
+        	if (this.checked) {
+				console.log(1)
+        		$(".disablewords").show();				
+        	}else{
+				console.log(2)
+        		$(".disablewords").hide();
+        	}
+        });
+        form.on('radio(urlmodel)', function(data) {
+        	if (this.value==1) {
+				console.log(this.value)
+        		$(".radionum").show();							
+        	}else{
+				console.log(this.value)
+				$(".radionum").hide();
+        	}
+        });			
+		form.verify({
+			tellphone: function(value,item){
+				var hideen=$(item).is(':hidden');
+				if(!hideen){
+					var flag = mobile.test(value);
+					if(!flag){
+						return '请输入正确手机号';
+					}							
+				}
+			}
+		});	
+    });
+
+</script>
+</body>
+</html>

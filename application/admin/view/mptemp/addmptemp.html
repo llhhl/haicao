@@ -1,0 +1,220 @@
+{include file="public/header" /}
+<style type="text/css">
+	.layui-form-onswitch{
+		background-color: #1b8bf5;
+	}
+	.layui-form-radio i:hover, .layui-form-radioed i {
+		color: #1b8bf5;
+	}	
+	.my_slt{
+		display: block !important;
+		height: 38px;
+		width: 100%;
+		border: 1px solid #e6e6e6;
+		padding: 0 6px;
+		box-sizing: border-box;
+	}
+</style>
+</head>
+<body>
+	<form  class="layui-form layui-form-pane" id="formrec" method="post" role="form">	
+	<div id="main-container">
+		<div class="main">
+			<div class="main_content">
+					<div class="title_bar mb20">
+						微信公众号消息推送&nbsp;&nbsp;&nbsp;&nbsp;<font class="font_tip">设置填写后请进行测试验证配置是否正确</font>
+					</div>
+					
+					<div class="disablewords" >
+						<div class="layui-form-item">
+							<label class="layui-form-label">模板名称</label>
+							<div class="layui-input-inline">
+								<input class="layui-input" lay-verify="required" type="text" name="temptitle" placeholder="模板名称" >
+							</div>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label">消息模板ID</label>
+							<div class="layui-input-inline">
+								<input class="layui-input" lay-verify="required" type="text" name="template_id" placeholder="" >
+							</div>
+							<font class="font_tip">示例：NaDC-**********_12Wyqdpv7SKlSfjZY8Tr7le_LJM</font>
+						</div>
+
+						<div class="layui-form-item">
+							<label class="layui-form-label">头部标题</label>
+							<div class="layui-input-inline">
+                             <textarea name="first" rows="5" class="w400 layui-textarea"style="width:80%;float:left;margin-top:20px;" placeholder="{{first.DATA}}" lay-verify="required"></textarea>
+							  <input type="color" name="firstcolor" value="#000000" style="width:32px;height:32px; float:left;margin-top:20px;" aria-invalid="false" class="valid">
+							</div>
+							<font class="font_tip">对填充模板 {{first.DATA}} 的值</font>
+						</div>
+                      
+                        
+ <div id="type-items"></div>
+ <div class="layui-form-item">
+                <a class="btn btn-default btn-add-type" href="javascript:;" onClick="addType();"><i class="fa fa-plus" title=""></i> 增加一条键</a>
+                        <span class="help-block">
+                        </span>
+            </div>
+						
+					<div class="layui-form-item">
+							<label class="layui-form-label">尾部描述</label>
+							<div class="layui-input-inline">
+                             <textarea name="tp_remark" rows="5" class="w400 layui-textarea"style="width:80%;float:left;margin-top:20px;" placeholder="{{remark.DATA}}" lay-verify="required"></textarea>
+								<input type="color" name="remarkcolor" value="#000000" style="width:32px;height:32px; float:left;margin-top:20px;" aria-invalid="false" class="valid">
+							</div>
+							<font class="font_tip">填充模板 {{remark.DATA}} 的值</font>
+						</div>					
+					</div>
+					
+				
+
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label"></label>
+			<div class="layui-input-inline seo_btn">
+				<button class="btn" lay-submit="" lay-filter="save" data-href='{:url('post')}'>提交</button>
+				<a href="javascript:history.go(-1)">返回</a>
+			</div>
+		</div>
+		
+	</div>
+	</form>
+<!-- <link rel="stylesheet" href="__ADM_PUBLIC__/css/webuploader.css">
+<script type="text/javascript" src="__ADM_PUBLIC__/js/webuploader.js"></script> -->
+
+<script>
+layui.use(['form','common','upload'], function(){
+        var $ = layui.jquery;
+        $form = $('form');
+        var form = layui.form(),layer = layui.layer,common=layui.common;
+		var mobile = /^1[3|4|5|7|8]\d{9}$/;
+        //监听提交
+        form.on('submit(save)', function(data){
+
+            var sub = true;
+            var url = $(this).data('href');
+			fields = $(data.form).serialize();
+            if(url){
+                if(sub){
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        dataType: 'json',
+                        data: fields,
+                        success: function (info) {
+                            if (info.code == 1) {
+                            	layer.alert(info.msg,{icon: 6},function(){
+                            		window.location.href='{:url('Mptemp/index')}';
+                            	});  								
+                                // common.layerAlertSHref(info.msg, '提示', "{:url('push/editpush')}");
+                            }
+                            else {
+                                common.layerAlertE(info.msg, '提示');
+                            }
+                        },
+                        beforeSend: function () {
+                            // $(data.elem).attr("disabled", "true").text("提交中...");
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            common.layerAlertE(textStatus, '提示');
+                        }
+                    });
+                }
+            }else{
+                common.layerAlertE('链接错误！', '提示');
+            }
+            return false;
+        });
+        $(function(){
+        	$('select[name="formid"]').next().find('.layui-anim-upbit dd').click(function(){
+				var id = $(".form_con select option:selected").val();
+				console.log(id)
+				$.ajax({
+					type:'GET',
+					url:"/admin/push/allform",
+					dataType:'json',
+					data:{id:id},
+					success:function(data){
+						var datalen = data.length;
+						var html ='';
+						var html2 ='';
+						var html3 ='';
+						var html4 ='';
+						var html5 ='';
+						var html6 ='';
+						html += `<select class="my_slt" name="content" lay-search lay-filter="content">`;
+						for (var i=0;i<datalen;i++) {
+							var p = data[i];
+							html +=`<option>${p.field}</option>`;
+						}
+						html += `<select>`;		
+
+						html2 += `<select class="my_slt" name="content2" lay-search lay-filter="content2">`;
+						for (var i=0;i<datalen;i++) {
+							var p = data[i];
+							html2 +=`<option>${p.field}</option>`;
+						}
+						html2 += `<select>`;	
+
+						html3 += `<select class="my_slt" name="content3" lay-search lay-filter="content3">`;
+						for (var i=0;i<datalen;i++) {
+							var p = data[i];
+							html3 +=`<option>${p.field}</option>`;
+						}
+						html3 += `<select>`;	
+
+						html4 += `<select class="my_slt" name="content4" lay-search lay-filter="content4">`;
+						for (var i=0;i<datalen;i++) {
+							var p = data[i];
+							html4 +=`<option>${p.field}</option>`;
+						}
+						html4 += `<select>`;	
+
+						html5 += `<select class="my_slt" name="content5" lay-search lay-filter="content5">`;
+						for (var i=0;i<datalen;i++) {
+							var p = data[i];
+							html5 +=`<option>${p.field}</option>`;
+						}
+						html5 += `<select>`;	
+
+						html6 += `<select class="my_slt" name="content6" lay-search lay-filter="content6">`;
+						for (var i=0;i<datalen;i++) {
+							var p = data[i];
+							html6 +=`<option>${p.field}</option>`;
+						}
+						html6 += `<select>`;	
+
+						$(".form_slt").html(html);
+						$(".form_slt2").html(html2);
+						$(".form_slt3").html(html3);
+						$(".form_slt4").html(html4);
+						$(".form_slt5").html(html5);
+						$(".form_slt6").html(html6);
+
+					}
+				})	
+
+        	}); 
+
+        	      	
+        })        
+    });
+	
+	
+	 function addType() {
+        $(".btn-add-type").button("loading");
+        $.ajax({
+            url: "{:url('tpl')}",
+            cache: false
+        }).done(function (html) {
+            $(".btn-add-type").button("reset");
+            $("#type-items").append(html);
+        });
+     
+    }
+</script>
+</body>
+</html>
